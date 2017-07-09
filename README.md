@@ -2,6 +2,12 @@
 
 Control Dyson PureLink fan/purifier devices from JavaScript.
 
+## Install
+```
+npm install dyson-purelink
+```
+
+## Use
 
 ```javascript
 var DysonPureLink = require('dyson-purelink')
@@ -14,8 +20,6 @@ pureLink.getDevices().then(devices => {
         console.log('No devices found')
         return
     }
-    
-
     // Get status
     devices[0].getTemperature().then(t => console.log('getTemperature', t))
     devices[0].getAirQuality().then(t => console.log('getAirQuality', t))
