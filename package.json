@@ -1,0 +1,20 @@
+{
+  "name": "dyson-purelink",
+  "version": "1.0.0",
+  "description": "Control Dyson PureLink fan/purifier devices from JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kenneth Auchenberg <kenneth@auchenberg.dk>",
+  "license": "MIT",
+  "dependencies": {
+    "bonjour": "^3.5.0",
+    "mqtt": "^2.9.1",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4"
+  },
+  "devDependencies": {
+    "debug": "^2.6.8"
+  }
+}
