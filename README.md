@@ -1,6 +1,6 @@
 # dyson-purelink
 
-Control Dyson PureLink fan/purifier devices from JavaScript.
+Control Dyson PureLink fan/purifier devices from JavaScript. Dicovers local devices on your WIFI via Bonjour/mDNS, logs into the Dyson Cloud to grab the device credentials and connects to the devices via MQTT. 
 
 ## Install
 ```
