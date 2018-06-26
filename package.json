@@ -1,6 +1,6 @@
 {
   "name": "dyson-purelink",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Control Dyson PureLink fan/purifier devices from JavaScript",
   "main": "index.js",
   "scripts": {

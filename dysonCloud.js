@@ -8,9 +8,13 @@ class DysonCloud {
         this.auth = {}
     }
 
-    authenticate(email, password) {
+    authenticate(email, password, country) {
+        if (!country) {
+            country = 'US'
+        }
+
         var options = {
-            url: `${this.api}/v1/userregistration/authenticate`,
+            url: `${this.api}/v1/userregistration/authenticate?country=${country}`,
             method: 'post',
             body: {
                 Email: email,
@@ -37,7 +41,7 @@ class DysonCloud {
 
     getCloudDevices() {
         var options = {
-            url: `${this.api}/v1/provisioningservice/manifest`,
+            url: `${this.api}/v2/provisioningservice/manifest`,
             method: 'get',
             auth: {
                 username: this.auth.account,
