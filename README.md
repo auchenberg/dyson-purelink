@@ -1,6 +1,6 @@
 # dyson-purelink
 
-Control Dyson PureLink fan/purifier devices from JavaScript. Discovers local devices on your WIFI via Bonjour/mDNS, logs into the Dyson Cloud to grab the device credentials and connects to the devices via MQTT. 
+Control Dyson PureLink fan/purifier devices from JavaScript. Discovers local devices on your WIFI via Bonjour/mDNS, logs into the Dyson Cloud to grab the device credentials and connects to the devices via MQTT.
 
 Tested with the follow devices:
 - Dyson Pure Cool Link Air Purifier & Fan Tower (1st Gen. filter)
@@ -15,11 +15,11 @@ npm install dyson-purelink
 ```javascript
 var DysonPureLink = require('dyson-purelink')
 
-var pureLink = new DysonPureLink("<your dyson cloud email>", "<your password>");
+var pureLink = new DysonPureLink("<your dyson cloud email>", "<your password>", "<your country>");
 
 pureLink.getDevices().then(devices => {
 
-    if(!devices) {
+    if(!Array.isArray(devices) || devices.length === 0) {
         console.log('No devices found')
         return
     }
