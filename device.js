@@ -133,73 +133,26 @@ class Device extends EventEmitter {
   }
 
   setFan (value) {
-    const now = new Date()
-    const fmod = value ? 'FAN' : 'OFF'
-    const message = JSON.stringify({
-      msg: 'STATE-SET',
-      time: now.toISOString(),
-      data: { fmod }
-    })
-
-    this.client.publish(
-      this._getCommandTopic(),
-      message
-    )
-
+    const data = this._apiV2018?{fpwr:value?'ON':'OFF'}:{fmod:value?'FAN':'OFF'}
+    this._setStatus(data)
     return this.getFanStatus()
   }
 
   setFanSpeed (value) {
-    const now = new Date()
     const fnsp = Math.round(value / 10)
-    const message = JSON.stringify({
-      msg: 'STATE-SET',
-      time: now.toISOString(),
-      data: {
-        fnsp
-      }
-    })
-    this.client.publish(
-      this._getCommandTopic(),
-      message
-    )
-
+    this._setStatus({ fnsp: this._apiV2018 ? "000" + fnsp : fnsp })
     return this.getFanSpeed()
   }
 
   setAuto (value) {
-    const now = new Date()
-    const fmod = value ? 'AUTO' : 'OFF'
-    const message = JSON.stringify({
-      msg: 'STATE-SET',
-      time: now.toISOString(),
-      data: {
-        fmod
-      }
-    })
-    this.client.publish(
-      this._getCommandTopic(),
-      message
-    )
-
+    const data = this._apiV2018 ? { auto:value?'ON':'OFF'} : { fmod:value?'AUTO':'OFF'}
+    this._setStatus(data)
     return this.getAutoOnStatus()
   }
 
   setRotation (value) {
-    const now = new Date()
     const oson = value ? 'ON' : 'OFF'
-    const message = JSON.stringify({
-      msg: 'STATE-SET',
-      time: now.toISOString(),
-      data: {
-        oson
-      }
-    })
-    this.client.publish(
-      this._getCommandTopic(),
-      message
-    )
-
+    this._setStatus({ oson })
     return this.getRotationStatus()
   }
 
@@ -216,6 +169,8 @@ class Device extends EventEmitter {
       password: this.password,
       rejectUnauthorized: false
     }
+
+    this._apiV2018 = this._MQTTPrefix === '438'
 
     if (this._MQTTPrefix === '438' || this._MQTTPrefix === '520') {
       this.options.protocolVersion = 3
@@ -257,6 +212,20 @@ class Device extends EventEmitter {
       msg: 'REQUEST-CURRENT-STATE',
       time: new Date().toISOString()
     }))
+  }
+
+  _setStatus (data) {
+    const message = JSON.stringify({
+      msg: 'STATE-SET',
+      "mode-reason":"LAPP",
+      time: new Date().toISOString(),
+      data
+    })
+
+    this.client.publish(
+      this._getCommandTopic(),
+      message
+    )
   }
 
   _getCurrentStatusTopic () {
