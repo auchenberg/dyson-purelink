@@ -17,26 +17,27 @@ var DysonPureLink = require('dyson-purelink')
 
 var pureLink = new DysonPureLink("<your dyson cloud email>", "<your password>", "<your country>");
 
-pureLink.getDevices().then(devices => {
+pureLink.getDevices().then(async devices => {
 
     if(!Array.isArray(devices) || devices.length === 0) {
         console.log('No devices found')
         return
     }
     // Get status
-    devices[0].getTemperature().then(t => console.log('getTemperature', t))
-    devices[0].getAirQuality().then(t => console.log('getAirQuality', t))
-    devices[0].getRelativeHumidity().then(t => console.log('getRelativeHumidity', t))
-    devices[0].getFanStatus().then(t => console.log('getFanStatus', t))
-    devices[0].getFanSpeed().then(t => console.log('getFanSpeed', t))
-    devices[0].getRotationStatus().then(t => console.log('getRotationStatus', t))
-    devices[0].getAutoOnStatus().then(t => console.log('getAutoOnStatus', t))
+    console.log('getTemperature', await devices[0].getTemperature());
+    console.log('getAirQuality', await devices[0].getAirQuality());
+    console.log('getRelativeHumidity', await devices[0].getRelativeHumidity());
+    console.log('getFanStatus', await devices[0].getFanStatus());
+    console.log('getFanSpeed', await devices[0].getFanSpeed());
+    console.log('getRotationStatus', await devices[0].getRotationStatus());
+    console.log('getAutoOnStatus', await devices[0].getAutoOnStatus());
 
     // Actions
-    devices[0].turnOn();
-    devices[0].setRotation(true).then(t => console.log('setRotation', t))
-    devices[0].setFanSpeed(100).then(t => console.log('setFanSpeed', t))
+    await devices[0].turnOn();
+    console.log('setRotation', await devices[0].setRotation(true));
+    console.log('setFanSpeed', await devices[0].setFanSpeed(100));
 
+    await pureLink.disconnect();
 }).catch(err => console.error(err))
 
 ```

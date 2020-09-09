@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kenneth Auchenberg <kenneth@auchenberg.dk>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/auchenberg/dyson-purelink"
+  },
   "license": "MIT",
   "dependencies": {
     "bonjour": "^3.5.0",

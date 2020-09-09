@@ -38,8 +38,17 @@ class Device extends EventEmitter {
     this.port = info.port
     this._MQTTPrefix = info.mqttPrefix || '475'
 
-    // debug('updateNetworkInfo', JSON.stringify(info))
     this._connect()
+  }
+
+  disconnect() {
+    return new Promise((resolve, reject) => {
+      if (this.client) {
+        this.client.end(resolve);
+      } else {
+        resolve();
+      }
+    });
   }
 
   getTemperature () {
