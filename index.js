@@ -36,6 +36,12 @@ class DysonPurelink {
     })
   }
 
+  disconnect() {
+    return Promise.all(Array.from(this._devices).map(([_, device]) => device.disconnect())).then(() => {
+      bonjour.destroy();
+    });
+  }
+
   _findNetworkDevices () {
     bonjour.find({ type: 'dyson_mqtt' }, (service) => {
       let serial = service.name
